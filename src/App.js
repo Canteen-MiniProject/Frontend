@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import AdditionalRoutes from "./AdditionalRoutes";
+import CanteenLogin from './auth/CanteenLogin';
+import UserLogin from './auth/UserLogin';
+import Register from './auth/Register';
+import LandingPage from './pages/LandingPage';
+
 
 function App() {
+  const isloggedIn = true;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {!isloggedIn && (
+        <Router>
+          <Routes>
+            <Route path="/" element={<LandingPage/>}/>
+            <Route path="/canteenlogin" element={<CanteenLogin/>}/>
+            <Route path="/userlogin" element={<UserLogin/>}/>
+            <Route path="/register" element={<Register/>}/>
+          </Routes>
+        </Router>
+      )}
+
+      {isloggedIn && <AdditionalRoutes />}
     </div>
   );
 }
